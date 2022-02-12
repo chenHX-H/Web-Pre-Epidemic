@@ -1,25 +1,26 @@
 <template>
-   <div class="header" >
+   <div class="header"  >
        <el-row class="wrapper " justify="center" align="middle">
-           <el-col class="font25px" :span="1" :offset="0.1">
-               <e  class="icon-un-fold"></e>
+           <el-col @click="$store.commit('collaspseAll')" align="middle" class="font25px" :span="1"  >
+                <span  class="icon-un-fold"></span>
            </el-col>
-           <el-col  :span="1">
+           <el-col  :span="1" >
                <el-image style="height: 35px;" 
-               :fit="cover" 
+                fit="fill" 
                :src="require('../assets/img/school-logo.jpg')">
 
                </el-image>
            </el-col>
+         
            <el-col :span="8"><b>Pre_Epidemic——疫情管理系统</b></el-col>
-           <el-col :span="4" :offset="9" class="rightArea">
+           <el-col :span="5" :offset="9" class="rightArea">
              <el-row align="middle" >
                  <el-space >
-                         <div class="tipBox">
+                        <div class="tipBox">
                         <span  class="font30px icon-tongzhi"></span>
                         <div class="tipDot"></div>
                    </div>
-                    <el-image class="headImg" :src='headUrl' :fit="fill"></el-image>
+                    <el-image class="headImg" :src='headUrl' fit="fill"></el-image>
                     <el-dropdown class="pointer">
                         <span>admin
                             <span class="icon-tabxiala"></span>
