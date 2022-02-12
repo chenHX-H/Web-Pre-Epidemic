@@ -3,9 +3,10 @@ html,
 body{
     margin: 0;
     padding: 0;
+}
+body{
     font-family: "iconfont";
 }
-
 #app,
 .wrapper{
     width: 100%;
@@ -13,3 +14,18 @@ body{
     overflow: hidden;
 }
 
+.fillHeight{
+    height: 100%;
+}
+.pointer{
+    cursor: pointer;
+}
+.pointer-red,.pointer-primaryBlue{
+    cursor: pointer;
+}
+.pointer-red:hover{
+    color:red;
+}
+.pointer-primaryBlue:hover{
+    color:#66B1FF;
+}
