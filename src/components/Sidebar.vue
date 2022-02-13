@@ -1,14 +1,15 @@
 <template>
   <div class="sidebar">
          
-      <el-menu class="elmmenu" :collapse="$store.state.collapse"
-       text-color="#409EFF">
+      <el-menu class="elmenu" :collapse="$store.state.collapse"
+      >
         <el-menu-item v-for="item in sidebarArray" 
         :key="item.index" index="1"
        >
+       <span :class="item.icon"></span>
             <template #title>
                 <!-- <el-tooltip :content="item.title" placement="right" > -->
-                    <span :class="item.icon"></span>
+                    
                     &nbsp; &nbsp;
                     <span>{{item.title}}</span>
                 <!-- </el-tooltip> -->
@@ -46,7 +47,7 @@ export default {
         /* display: block; */
         position: absolute;
         height: 100%;
-        background: #000;
+        /* background: #000; */
         /* min-width: 50px; */
         top: 0;
         left: 0;
@@ -57,8 +58,9 @@ export default {
     .sidebar>ul>li{
         font-size: 20px;
     }
-     .elmmenu:not(.elmmenu--collapse) {
+     .elmenu:not(.elmenu--collapse) {
          /* width: 100%; */
          color: black;
+         height: 100%;
   }
 </style>
