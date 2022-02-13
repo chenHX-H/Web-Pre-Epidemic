@@ -2,16 +2,15 @@
   <div class="sidebar">
          
       <el-menu class="elmenu" :collapse="$store.state.collapse"
-      >
+       router 	>
         <el-menu-item v-for="item in sidebarArray" 
-        :key="item.index" index="1"
+        :key="item.index" :index="item.routerUrl"
        >
        <span :class="item.icon"></span>
             <template #title>
                 <!-- <el-tooltip :content="item.title" placement="right" > -->
-                    
                     &nbsp; &nbsp;
-                    <span>{{item.title}}</span>
+                    <span >{{item.title}}</span>
                 <!-- </el-tooltip> -->
             </template>
         </el-menu-item>
@@ -24,7 +23,7 @@
 export default {
     setup(){
         const sidebarArray=[
-            {index:0,title:"主页",icon:"icon-zhuye"},
+            {index:0,title:"主页",icon:"icon-zhuye",routerUrl:"/dashboard"},
             {index:1,title:"物资管理",icon:"icon-wuzi"},
             {index:2,title:"疫情监控",icon:"icon-bingtu"},
             {index:3,title:"住院管理",icon:"icon-zhuyuanjilu"},
@@ -42,24 +41,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .sidebar{
-        /* display: block; */
+        display: block;
         position: absolute;
-        height: 100%;
-        /* background: #000; */
-        /* min-width: 50px; */
-        top: 0;
         left: 0;
-        padding-top: 60px;
-        z-index: -1;
+        top: 70px;
+        bottom: 0;
         
     }
     .sidebar>ul>li{
         font-size: 20px;
     }
      .elmenu:not(.elmenu--collapse) {
-         /* width: 100%; */
          color: black;
          height: 100%;
   }

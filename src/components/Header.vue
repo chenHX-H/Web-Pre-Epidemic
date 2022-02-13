@@ -35,7 +35,7 @@
                         </template>
                     </el-dropdown>
                     <el-tooltip effect="light" content="项目仓库">
-                        <a>
+                        <a href="https://github.com/chenHX-H/Web-Pre-Epidemic">
                             <span class="icon-github pointer-primaryBlue"></span>
                         </a>
                     </el-tooltip>
