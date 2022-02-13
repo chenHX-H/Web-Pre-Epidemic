@@ -4,7 +4,7 @@ body{
     margin: 0;
     padding: 0;
 }
-body{
+body,span{
     font-family: "iconfont";
 }
 #app,
@@ -31,6 +31,12 @@ a{
 }
 .pointer-primaryBlue:hover{
     color:#66B1FF;
+}
+.font18px{
+    font-size: 18px;
+}
+.font20px{
+    font-size: 20px;
 }
 .font25px{
     font-size: 25px;
