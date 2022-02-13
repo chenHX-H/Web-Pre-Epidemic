@@ -13,6 +13,9 @@ body{
     height: 100%;
     overflow: hidden;
 }
+a{
+    color:black;
+}
 
 .fillHeight{
     height: 100%;
@@ -28,4 +31,10 @@ body{
 }
 .pointer-primaryBlue:hover{
     color:#66B1FF;
+}
+.font25px{
+    font-size: 25px;
+}
+.font30px{
+    font-size: 30px;
 }

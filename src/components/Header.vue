@@ -35,7 +35,7 @@
                         </template>
                     </el-dropdown>
                     <el-tooltip effect="light" content="项目仓库">
-                        <a href="https://github.com/chenHX-H/Web-Pre-Epidemic">
+                        <a target="_blank" href="https://github.com/chenHX-H/Web-Pre-Epidemic">
                             <span class="icon-github pointer-primaryBlue"></span>
                         </a>
                     </el-tooltip>
@@ -70,20 +70,20 @@ export default {
         border: 1px rgba(0, 0, 0, 0.1) solid;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
     }
-    .font25px{
-        font-size: 25px;
-    }
-    .font30px{
-        font-size: 30px;
-    }
+    
     .tipBox{
-        /* margin-right:5px; */
+        position: relative;
         cursor:pointer;
     }
     .tipDot{
-        width: 5px;
-        height: 5px;
-        color:blue;
+        position: absolute;
+        right: 0;
+        top:0;
+        border-radius: 50%;
+        width: 6px;
+        height: 6px;
+        background-color: #f56c6c;
+        z-index: 11;
     }
     .headImg{
         height: 45px;
