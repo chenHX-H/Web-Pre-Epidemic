@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 const routes = [
+  {path:'/',
+   redirect:'/dashboard'
+  },
   {
     path:'/',
     component:()=>import('../views/Home.vue'),
@@ -23,10 +26,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next)=>{
-    let state=localStorage.getItem('online')
-    console.log("state:",state)
-    console.log("to:",to.path)
-    console.log("from",from.path)
+    let state=localStorage.getItem('user')
     if(!state && to.fullPath!='/login'){
       next("/login")
     }

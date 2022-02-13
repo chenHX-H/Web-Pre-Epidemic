@@ -2,19 +2,20 @@
   <div class="wrapper wrap" >
       <div class="content-box">
           <div class="title">Pre_Epidemic疫情管理系统</div>
-          <el-form >
-              <el-form-item  >
-                  <el-input placeholder="邮箱"></el-input>
+          <el-form :model="formData" ref="form" :rules="rules"
+          :validate-on-rule-change="false">
+              <el-form-item  required prop="email">
+                  <el-input v-model="formData.email" placeholder="邮箱"></el-input>
+              </el-form-item >
+              <el-form-item required prop="password">
+                  <el-input v-model="formData.password"  placeholder="密码" show-password></el-input>
               </el-form-item>
-              <el-form-item >
-                  <el-input placeholder="密码"></el-input>
-              </el-form-item>
-              <el-form-item size="large">
+              <el-form-item size="large" >
                   <el-button-group class="btnGroup">
-                    <el-button ref="leftBtn">{{isLoginState ?"登录":"注册"}}</el-button>
-                    <el-button ref="right"  class="registerBtn" @click="isLoginState=!isLoginState">
+                    <el-button @click="submitForm">{{formData.isLoginState ?"登录":"注册"}}</el-button>
+                    <el-button class="registerBtn" @click="formData.isLoginState=!formData.isLoginState">
                         <span class="icon-right-arrow" style="color:rgb(59, 143, 211)">
-                            &nbsp;&nbsp;</span>{{isLoginState ?"注册":"登录"}}</el-button>
+                            &nbsp;&nbsp;</span>{{formData.isLoginState ?"注册":"登录"}}</el-button>
                   </el-button-group>
               </el-form-item>
           </el-form>
@@ -24,14 +25,47 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import {reactive,ref} from 'vue'
+import { useRouter } from 'vue-router'
 export default {
     setup(){
-    
-        let isLoginState=ref(true) //表示是登录按钮
-        // switchBtn()
+        let formData=reactive({
+            isLoginState:true,  //表示是登录按钮
+            email:"",
+            password:""
+        })
+        const form=ref(null)
+        const router=useRouter()
+        console.log("form",form)
+
+        let rules={
+            email:[
+                {required:true,message:"请输入邮箱"},
+                {min:5,max:25,message:"长度在5-25之间",trigger: 'blur'}
+            ],
+            password:[
+                {required:true,message:"请输入密码"},
+                {min:6,max:20,message:"密码长度应在6-20之间",trigger: 'blur'}
+            ]
+        }
+
+        function submitForm(){
+            form.value.validate((valid)=>{ //如果表单的规则被满足，则为true，不满足的情况，都设置了提示信息，即如果有错误提示就为false
+                if(valid){
+                    console.log("邮箱账号：",formData.email)
+                    console.log("密码:",formData.password)
+                    localStorage.setItem("user",formData.email+"=="+formData.password)
+                    router.push("/")
+                    console.log("ssa")
+                }else{
+                    console.log("登录失败")
+                }
+            })
+            
+            
+        }
         return{
-            isLoginState
+            formData,submitForm,form,rules
         }
 
     }
@@ -54,6 +88,7 @@ export default {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);  
         padding:0px 30px 0 30px ;
         box-sizing:border-box;
+        border-radius: 8px;
     }
     :deep(.el-input__inner){
           height: 50px;
@@ -81,6 +116,9 @@ export default {
         float: left;
         width: 70%;
         background-color: rgba(255,255, 255, 0.8);
+         font-weight: bold;
+         color:rgba(155,155,155);
+
     }
     button:focus{
          background-color: rgba(255,255, 255, 0.8);
