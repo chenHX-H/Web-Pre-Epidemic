@@ -16,6 +16,9 @@ body,span{
 a{
     color:black;
 }
+.content-collapse{
+    left: 70px;
+ } 
 
 .fillHeight{
     height: 100%;
