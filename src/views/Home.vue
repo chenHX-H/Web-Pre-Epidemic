@@ -24,11 +24,11 @@ export default {
     .content-box{
         position: absolute;
         left: 170px;
-        right: 0;
+        right: 20px;
         top: 130px;
         bottom: 0;
         padding-bottom: 30px;
-        transition: left .4s ease-in-out;
+        transition: left .5s ease;
     }  
 
    

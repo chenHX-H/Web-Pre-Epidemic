@@ -17,7 +17,7 @@ a{
     color:black;
 }
 .content-collapse{
-    left: 70px;
+    left: 70px !important;
  } 
 
 .fillHeight{
