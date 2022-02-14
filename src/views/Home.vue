@@ -25,7 +25,7 @@ export default {
         position: absolute;
         left: 170px;
         right: 0;
-        top: 70px;
+        top: 130px;
         bottom: 0;
         padding-bottom: 30px;
         transition: left .4s ease-in-out;
