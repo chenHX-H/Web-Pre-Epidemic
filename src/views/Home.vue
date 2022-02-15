@@ -4,7 +4,9 @@
         <v-sidebar></v-sidebar>
         <v-scroll-tip></v-scroll-tip>
         <div class="content-box" :class="{'content-collapse':$store.state.collapse}">
-            <router-view></router-view>
+            <div class="content">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
    
@@ -24,7 +26,7 @@ export default {
     .content-box{
         position: absolute;
         left: 170px;
-        right: 20px;
+        right: 0px;
         top: 130px;
         bottom: 0;
         padding-bottom: 30px;
@@ -32,5 +34,11 @@ export default {
     }  
 
    
-     
+     .content {
+        width: auto;
+        height: 100%;
+        padding: 10px;
+        overflow-y: scroll;
+        box-sizing: border-box;
+    }   
 </style>

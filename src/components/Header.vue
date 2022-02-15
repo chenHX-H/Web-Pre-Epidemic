@@ -63,12 +63,14 @@ export default {
 
 <style scoped>
     .header{
+        
         /* margin: 20px; */
         font-size: 20px;
         background-color: white;
         height: 60px;
         border: 1px rgba(0, 0, 0, 0.1) solid;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+    
     }
     
     .tipBox{
