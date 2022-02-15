@@ -79,7 +79,7 @@
          
         </el-row>
         <el-row>
-          <el-card class="backlog-list">
+          <el-card class="backlog-list" shadow="hover">
             <template #header>
               <span>待处理列表</span>
             </template>
