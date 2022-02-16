@@ -24,7 +24,7 @@ export default {
     setup(){
         const sidebarArray=[
             {index:0,title:"主页",icon:"icon-zhuye",routerUrl:"/dashboard"},
-            {index:1,title:"物资管理",icon:"icon-wuzi"},
+            {index:1,title:"物资管理",icon:"icon-wuzi",routerUrl:"/material"},
             {index:2,title:"疫情监控",icon:"icon-bingtu"},
             {index:3,title:"住院管理",icon:"icon-zhuyuanjilu"},
             {index:4,title:"文件上传",icon:"icon-yunshangchuan"},

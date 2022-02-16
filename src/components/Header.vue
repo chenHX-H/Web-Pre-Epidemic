@@ -1,7 +1,7 @@
 <template>
    <div class="header"  >
        <el-row class="wrapper " justify="center" align="middle">
-           <el-col @click="$store.commit('collaspseAll')" align="middle" class="font25px" :span="1"  >
+           <el-col style="cursor: pointer;" @click="$store.commit('collaspseAll')" align="middle" class="font25px" :span="1"  >
                 <span  class="icon-un-fold"></span>
            </el-col>
            <el-col  :span="1" >

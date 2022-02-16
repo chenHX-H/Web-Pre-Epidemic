@@ -10,13 +10,15 @@ const routes = [
     path:'/',
     component:()=>import('../views/Home.vue'),
     children:[
-      {path:"dashboard",component:()=>import('../views/dashboard.vue')}
+      {path:"dashboard",component:()=>import('../views/dashboard.vue')},
+      { path:'/material', component:()=>import('../views/material.vue')}
     ]
   },
   {
     path:'/login',
     component:()=>import('../views/Login.vue')
-  }
+  },
+ 
 
 ]
 
