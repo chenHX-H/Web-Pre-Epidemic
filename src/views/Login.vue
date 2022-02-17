@@ -12,7 +12,7 @@
               </el-form-item>
               <el-form-item size="large" >
                   <el-button-group class="btnGroup">
-                    <el-button @click="submitForm">{{formData.isLoginState ?"登录":"注册"}}</el-button>
+                    <el-button @click="formBtnEvent">{{formData.isLoginState ?"登录":"注册"}}</el-button>
                     <el-button class="registerBtn" @click="formData.isLoginState=!formData.isLoginState">
                         <span class="icon-right-arrow" style="color:rgb(59, 143, 211)">
                             &nbsp;&nbsp;</span>{{formData.isLoginState ?"注册":"登录"}}</el-button>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import {reactive,ref} from 'vue'
+import { reactive,ref} from 'vue'
 import { useRouter } from 'vue-router'
 export default {
     setup(){
@@ -61,11 +61,23 @@ export default {
                     console.log("登录失败")
                 }
             })
-            
+        }
+        let formBtnEvent=()=>{
+            if(formData.isLoginState){
+                submitForm();
+            }else{
+                console.log("当前是注册事件")
+            }
             
         }
+           /* 监控本页面的回车事件，触发按钮 */
+            window.addEventListener('keydown',(e)=>{
+                if(e.key=="Enter"){
+                    formBtnEvent()
+                }            
+            }); 
         return{
-            formData,submitForm,form,rules
+            formData,submitForm,form,rules,formBtnEvent
         }
 
     }

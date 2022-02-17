@@ -21,16 +21,17 @@
                         <div class="tipDot"></div>
                    </div>
                     <el-image class="headImg" :src='headUrl' fit="fill"></el-image>
-                    <el-dropdown class="pointer">
+                    
+                    <el-dropdown class="pointer" @command="handleCommand">
                         <span>admin
                             <span class="icon-tabxiala"></span>
                         </span>
                         <template #dropdown>
-                            <el-dropdown-menu>
-                                <el-dropdown-item>项目地址</el-dropdown-item>
+                            <el-dropdown-menu >
+                                <el-dropdown-item >项目地址</el-dropdown-item>
                                 <el-dropdown-item>个人中心</el-dropdown-item>
                                 <el-dropdown-item >联系作者</el-dropdown-item>
-                                <el-dropdown-item divided>注销</el-dropdown-item>
+                                <el-dropdown-item divided command="4">注销</el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
                     </el-dropdown>
@@ -55,8 +56,18 @@
 export default {
     setup(){
        let headUrl=require("../assets/img/head.png")
-       console.log("s",headUrl)
-       return{headUrl}
+    
+       function handleCommand(order){
+           if(order==4){
+             logout()
+           }  
+       }
+       let logout=()=>{
+            localStorage.removeItem("user")
+            window.location.reload();
+            console.log("已退出登录！")
+       }
+       return{headUrl,handleCommand}
     }
 }
 </script>
