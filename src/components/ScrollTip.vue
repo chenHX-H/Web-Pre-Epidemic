@@ -2,11 +2,12 @@
     <div class="banner" :class="{'content-collapse':$store.state.collapse}">
             <span class="scrollTip">{{scrollTip}}</span>
 
-           <el-popover trigger="click"  
+           <el-popover trigger="hover"  
             placement="bottom"
             width="200" 
             @show="editShow"
             @hide="editHide"
+         
               >
                 <template #reference>
                     <span  class="editIcon icon-edit"></span>
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import {ref }from 'vue'
+import {onMounted, ref }from 'vue'
 
 export default {
   setup(){
@@ -35,7 +36,6 @@ export default {
         let inputV=ref(null)
         let inputE=ref(null)
         function saveTip(){
-            console.log("inputV",inputV)
             scrollTip.value=inputV.value
             inputV.value=""
         }
@@ -46,10 +46,11 @@ export default {
        function editHide(){
            inputE.value.clear();
        }
+       
         return{
             scrollTip,inputV,saveTip,editShow,editHide,inputE
         }
-
+     
     }
 }
 </script>
