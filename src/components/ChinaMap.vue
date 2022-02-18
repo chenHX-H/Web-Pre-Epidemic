@@ -15,15 +15,16 @@ export default {
         /* echarts配置项 */
         let option = {
             title: { text: "全国地图" },
-            series: [
+            series: 
                 {   
                     name:"疫情详情:", /* 触碰提示框标题 */
                     type: "map",
                     map: "china",
                     selectedMode: "single",
-                    roam:true
+                    roam:true       /* 开启鼠标缩放和平移 */
+                    // label:{show:true}, /* 是否显示区域name */
+                   
                 },
-            ],
             /* 数据集，数据的对应，是以 地图数据里面每块区域的名字 作为name */
             dataset:{
                 source:[
@@ -56,12 +57,12 @@ export default {
                 /* 加载数据时，开启加载动画 */
                 myChart.showLoading()
                 let mapJson = await $http.get(
-                    // "./chinaMap.json"
-                    "https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json"
+                    "./chinaMap.json"
+                    // "https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json"
                 );
                 /* 加载完毕，关闭动画 */
                 myChart.hideLoading()
-                console.log("打印返回结果:", mapJson);
+                console.log("打印返回结果:",  mapJson.data);
                 echarts.registerMap("china", mapJson.data);
                 myChart.setOption(option);
 
