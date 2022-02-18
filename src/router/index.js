@@ -11,7 +11,8 @@ const routes = [
     component:()=>import('../views/Home.vue'),
     children:[
       {path:"dashboard",component:()=>import('../views/dashboard.vue')},
-      { path:'/material', component:()=>import('../views/material.vue')}
+      {path:'/material', component:()=>import('../views/material.vue')},
+      {path:'/chinaMap',component:()=>import('../components/ChinaMap.vue')}
     ]
   },
   {
