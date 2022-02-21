@@ -21,6 +21,7 @@ export default {
         let myChart = null;
         let mapJson = null;
         let location = $store.getters.getLocation;
+        let mapLevel3 = mapLevel3 = JSON.parse(localStorage.getItem("mapLevel3"));
 
         /* 初始化数据 */
         location = ["中华人民共和国"];
@@ -34,9 +35,9 @@ export default {
                 roam: true /* 开启鼠标缩放和平移 */,
                 // label:{show:true}, /* 是否显示区域name */
                 // center:  [80, 40],
-                zoom : 1
+                zoom: 1
             },
-          
+
 
             /* 数据集，数据的对应，是以 地图数据里面每块区域的名字 作为name */
             dataset: {
@@ -76,9 +77,6 @@ export default {
             await renderMap(); /* 加上 await 保证后面代码在其之后执行 */
             /* 点击事件 */
             myChart.on("click", (params) => {
-                console.log('params:', params);
-
-                console.log("params", params.name);
                 switchMap(params.name);
             });
 
@@ -90,6 +88,7 @@ export default {
         let saveMapLevel3 = async () => {
             let chinaLevel3 = await $http.get("./adcode_citycode_level3.json");
             localStorage.setItem("mapLevel3", JSON.stringify(chinaLevel3.data));
+
         };
         onMounted(() => {
             initMap();
@@ -101,12 +100,16 @@ export default {
             /* operate：1表示进入下一级地图，0表示回到上一级 */
             if (!("mapLevel3" in localStorage)) {
                 saveMapLevel3();
+                mapLevel3 = JSON.parse(localStorage.getItem("mapLevel3"));
             }
-            let mapLevel3 = JSON.parse(localStorage.getItem("mapLevel3"));
-            console.log("op", operate);
 
             if (operate == 1) {
                 if (location[location.length - 1] != name) {
+                    if (location.length>1 && (name.slice(-1) == "县" ||name.slice(-1) == '区')) {
+                        console.log('最多只能下钻3级');
+                        return
+
+                    }
                     location.push(name);
                 }
             } else {
@@ -114,69 +117,59 @@ export default {
                     location.pop();
                 }
             }
-            /* 城市编码数据采用的是自己编程构造的JSON，存在问题，
-                          即：只有一级(省/直辖市）和二级(省/直辖市 下一级) 映射关系正确，更低级的城市被直接合并到了二级中 
-                      幸运的是：提供数据的DataV接口只提供3级地理数据；所以本JSON文件的部分错误映射关系并不影响本地图的使用
-                      在下面，做出了错误处理*/
-
             console.log("本次点击后的地理位置：", location);
-            //   let ob = JSON.parse(JSON.stringify(mapLevel3));
             let ob = mapLevel3;
-
+            let code = 100000
+            let iterator = null
             for (let i = 1; i < location.length; i++) {
-                let name = location[i];
-                try {
-                    /* if判断是否是省级以下 */
-                    if (ob[name] == undefined) {
-                        ob = ob["children"][name];
-                    } else {
-                        ob = ob[name];
+                if (i == 1) {
+                    iterator = ob
+                } else {
+                    iterator = ob['children']
+                }
+                iterator.forEach(item => {
+                    if (item['name'] == location[i]) {
+                        ob = item
                     }
-                } catch (err) {
-                    /* 因为数据原因，只允许3级，省/州/市 ，市县级无法点击 */
-                    /* 这里就限定了最多只能下钻2次 */
-                    return;
+                })
+                console.log('ob:', ob)
+                 code = ob['code']
+            }
+
+           
+
+            if (code.length != 6) {
+                let i = 6 - code.length
+                while (i-- > 0) {
+                    code += '0'
                 }
             }
-            $store.commit("updateAdcode", ob["adcode"]);
-            console.log();
-            let word = location[location.length - 1].slice(-1);
-            if (word == "县" || (location.length > 2 && word == "区")) {
-                /* 在上面中，已经catch处理了，3级以下的情况，令其return结束，
-                        这里处理的是第二级为县,区的情况，
-                        因为区域码和DataV提供的地理坐标数据都没有此级别，所以令其return */
-                return;
-            }
-            renderMap(ob["adcode"]);
+            $store.commit("updateAdcode", code);
+            renderMap(code);
         }
-        async function renderMap(code = 100000) {
+        async function renderMap(code = '100000') {
             let url =
                 "https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=" +
-                String(code) +
+                code +
                 "_full";
 
-            let url2="https://geo.datav.aliyun.com/areas_v3/bound/"+String(code)+"_full.json"
+            let url2 = "https://geo.datav.aliyun.com/areas_v3/bound/" + code + "_full.json"
 
             /* 加载数据时，开启加载动画 */
             myChart.showLoading();
             let title = "";
-            // let option2=JSON.parse(JSON.stringify( option))
             try {
                 if (location.length == 1) {
                     mapJson = await $http.get("./chinaMap.json");
                     title = location[0];
-                    // option2=option
-                    // option.series.zoom=1
+
                 } else {
                     mapJson = await $http.get(url2);
                     title = location[1];
                     for (let i = 2; i < location.length; i++) {
                         title = title + "-" + location[i];
                     }
-                    //  option.series.zoom=2
 
-                    // option2.series.zoom=2.5
-                    // option2.series.center= [85, 40]
                 }
             } catch (err) { }
 
